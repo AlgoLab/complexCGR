@@ -3,10 +3,8 @@ from itertools import product
 from tqdm import tqdm
 from typing import Dict, Optional 
 from collections import defaultdict, namedtuple
-
-from matplotlib import pyplot as plt
-from matplotlib import cm
-import pylab
+from PIL import Image
+import numpy as np
 
 # coordinates for x+iy
 Coord = namedtuple("Coord", ["x","y"])
@@ -25,8 +23,8 @@ class CGR:
 
     def forward(self, nucleotide: str): 
         "Compute next CGR coordinates"
-        x = (self.cgr_coords.x + DEFAULT_COORDS.get(nucleotide).x)/2
-        y = (self.cgr_coords.y + DEFAULT_COORDS.get(nucleotide).y)/2
+        x = (self.cgr_coords.x + self.nucleotide_coords.get(nucleotide).x)/2
+        y = (self.cgr_coords.y + self.nucleotide_coords.get(nucleotide).y)/2
         
         # update cgr_coords
         self.cgr_coords = CGRCoords(self.cgr_coords.N+1,x,y)
@@ -51,8 +49,9 @@ class CGR:
         "From DNA sequence to CGR"
         # reset starting position to (0,0,0)
         self.reset_coords()
-        for nucleotide in tqdm(sequence):
+        for nucleotide in sequence:
             self.forward(nucleotide)
+        return self.cgr_coords
     
     def reset_coords(self,):
         self.cgr_coords = CGRCoords(0,0,0)
@@ -63,22 +62,23 @@ class CGR:
         # Recover the entire genome
         while self.cgr_coords.N>0: 
             self.backward()
-        
+        return self.cgr_coords        
+
 class FCGR(CGR): 
     """Frequency matrix CGR
-    an (4**kx4**k) 2D representation will be created for a sequence an 
-    n-long sequence, k represents the k-mer
+    an (2**k x 2**k) 2D representation will be created for a 
+    n-long sequence. 
+    - k represents the k-mer.
+    - 2**k x 2**k = 4**k the total number of k-mers (sequences of length k)
     """
 
     def __init__(self, k: int):
         super().__init__()
         self.k = k # k-mer representation
-        self.freq_kmer = defaultdict(int)
-        self.probabilities = defaultdict(float)
         self.kmers = product("ACGT", repeat=self.k)
-        
 
     def count_kmers(self, sequence: str): 
+        self.freq_kmer = defaultdict(int)
         # representativity of kmers
         for j,_ in enumerate(sequence):
             subseq = sequence[j:j+self.k]
@@ -86,49 +86,61 @@ class FCGR(CGR):
                 self.freq_kmer[subseq] +=1
     
     def kmer_probabilities(self, sequence: str):
+        self.probabilities = defaultdict(float)
         N=len(sequence)
         for key, value in self.freq_kmer.items():
             self.probabilities[key] = float(value) / (N - self.k + 1)
 
-    def __call__(self, sequence: str):
-        "Frequency Matrix CGR"
-        #https://towardsdatascience.com/chaos-game-representation-of-a-genetic-sequence-4681f1a67e14
+    def pixel_position(self, kmer: str):
+        "Get pixel position in the FCGR matrix for a k-mer"
+
+        coords = self.encode(kmer)
+        N,x,y = coords.N, coords.x, coords.y
         
+        # Coordinates from [-1,1]² to [1,2**k]²
+        np_coords = np.array([(x + 1)/2, (y + 1)/2]) # move coordinates from [-1,1]² to [0,1]²
+        np_coords *= 2**self.k # rescale coordinates from [0,1]² to [0,2**k]²
+        x,y = np.ceil(np_coords) # round to upper integer 
+
+        # Turn coordinates (cx,cy) into pixel (px,py) position 
+        # px = 2**k-cy+1, py = cx
+        return 2**self.k-int(y)+1, int(x)
+
+    def __call__(self, sequence: str):
+        "Given a DNA sequence, returns an array with his FCGR"
         self.count_kmers(sequence)
         self.kmer_probabilities(sequence)
-
+        # Create an empty array to save the FCGR values
         array_size = int(2**self.k)
-        fcgr = []
-        for i in range(array_size):
-            fcgr.append([0]*array_size)
-    
-        maxx = array_size
-        maxy = array_size
-        posx = 1
-        posy = 1
+        fcgr = np.zeros((array_size,array_size))
 
+        # Assign probability to each box in the Frequency CGR
         for kmer, prob in self.probabilities.items():
-            for nb in kmer:
-                if nb == "T":
-                    posx += maxx / 2
-                elif nb == "C":
-                    posy += maxy / 2
-                elif nb == "G":
-                    posx += maxx / 2
-                    posy += maxy / 2
-                maxx = maxx / 2
-                maxy /= 2
-            
-            fcgr[int(posy)-1][int(posx)-1] = prob
-            maxx = array_size
-            maxy = array_size
-            posx = 1
-            posy = 1
-    
+            pos_x, pos_y = self.pixel_position(kmer)          
+            fcgr[int(pos_x)-1,int(pos_y)-1] = prob
         return fcgr
 
-    def plot(self, chaos):
-        "Plot FCGR"
-        pylab.title('Chaos game representation for {}-mers'.format(self.k))
-        pylab.imshow(chaos, interpolation='nearest', cmap=cm.gray_r)
-        pylab.show()
+    def plot(self, fcgr):
+        "Given a FCGR, plot it in grayscale"
+        img_pil = self.array2img(fcgr)
+        return img_pil
+
+    def save(self, fcgr, path: str):
+        "Save image in grayscale for the FCGR provided as input"
+        img_pil = self.array2img(fcgr)
+        img_pil.save(path)
+    
+    @staticmethod
+    def array2img(array):
+        "Array to PIL image"
+        m, M = array.min(), array.max()
+        # rescale to [0,1]
+        img_rescaled = (array - m) / (M-m) 
+        
+        # invert colors black->white
+        img_array = np.ceil(255 - img_rescaled*255)
+        img_array = np.array(img_array, dtype="uint8")
+        
+        # convert to Image 
+        img_pil = Image.fromarray(img_array,'L')
+        return img_pil
