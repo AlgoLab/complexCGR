@@ -1,7 +1,12 @@
 "From original work: CGR for gene structure"
+from itertools import product
 from tqdm import tqdm
 from typing import Dict, Optional 
-from collections import namedtuple
+from collections import defaultdict, namedtuple
+
+from matplotlib import pyplot as plt
+from matplotlib import cm
+import pylab
 
 # coordinates for x+iy
 Coord = namedtuple("Coord", ["x","y"])
@@ -66,4 +71,64 @@ class FCGR(CGR):
     """
 
     def __init__(self, k: int):
+        super().__init__()
         self.k = k # k-mer representation
+        self.freq_kmer = defaultdict(int)
+        self.probabilities = defaultdict(float)
+        self.kmers = product("ACGT", repeat=self.k)
+        
+
+    def count_kmers(self, sequence: str): 
+        # representativity of kmers
+        for j,_ in enumerate(sequence):
+            subseq = sequence[j:j+self.k]
+            if "N" not in subseq:
+                self.freq_kmer[subseq] +=1
+    
+    def kmer_probabilities(self, sequence: str):
+        N=len(sequence)
+        for key, value in self.freq_kmer.items():
+            self.probabilities[key] = float(value) / (N - self.k + 1)
+
+    def __call__(self, sequence: str):
+        "Frequency Matrix CGR"
+        #https://towardsdatascience.com/chaos-game-representation-of-a-genetic-sequence-4681f1a67e14
+        
+        self.count_kmers(sequence)
+        self.kmer_probabilities(sequence)
+
+        array_size = int(2**self.k)
+        fcgr = []
+        for i in range(array_size):
+            fcgr.append([0]*array_size)
+    
+        maxx = array_size
+        maxy = array_size
+        posx = 1
+        posy = 1
+
+        for kmer, prob in self.probabilities.items():
+            for nb in kmer:
+                if nb == "T":
+                    posx += maxx / 2
+                elif nb == "C":
+                    posy += maxy / 2
+                elif nb == "G":
+                    posx += maxx / 2
+                    posy += maxy / 2
+                maxx = maxx / 2
+                maxy /= 2
+            
+            fcgr[int(posy)-1][int(posx)-1] = prob
+            maxx = array_size
+            maxy = array_size
+            posx = 1
+            posy = 1
+    
+        return fcgr
+
+    def plot(self, chaos):
+        "Plot FCGR"
+        pylab.title('Chaos game representation for {}-mers'.format(self.k))
+        pylab.imshow(chaos, interpolation='nearest', cmap=cm.gray_r)
+        pylab.show()
