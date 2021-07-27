@@ -1,7 +1,5 @@
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 
-from .cgr import (
-    CGR,
-    FCGR,
-)
+from .cgr import CGR
+from .fcgr import FCGR
 from .complexcgr import complexCGR
