@@ -9,7 +9,7 @@ The available classes are:
 ## How to use
 ___
 ### 1. Chaos Game Representation of DNA (CGR)
-```{python}
+```python
 from complexcgr import CGR
 
 # Instantiate class CGR
@@ -21,7 +21,7 @@ cgr_encode = cgr.encode("ACGT")
 ### 2. Frequency Matrix of Chaos Game Representation of DNA (FCGR)
 Input for FCGR only accept sequences in $\{A,C,G,T,N\}$, but all $k$-mers that contains an $N$ 
 will not be considered for the calculation of the frequency matrix CGR
-```{python}
+```python
 import random; random.seed(42)
 from complexcgr import FCGR
 
@@ -37,7 +37,7 @@ fcgr.plot(chaos)
 |:--:|
 |sequence without T's|
 
-```{python}
+```python
 # Generate a random sequence without T's and lots of N's
 seq = "".join(random.choice("ACGN") for _ in range(300_000))
 chaos = fcgr() # an array with the probabilities of each k-mer
@@ -52,11 +52,11 @@ fcgr.plot(chaos)
 
 ## Installation
 ___
-```{shell}
+```shell
 pip install complexcgr
 ```
 
 to update to the latest version
-```{shell}
+```shell
 pip install complexcgr --upgrade
 ```
