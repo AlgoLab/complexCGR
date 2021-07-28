@@ -4,7 +4,7 @@ The available classes are:
 - [x] `CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
 - [x] `FCGR` Frequency Matrix CGR: representation as image for k-mer representativity based on CGR.
 - [ ] `iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
-- [ ] `complexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
+- [x] `complexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
 
 ## How to use
 ___
@@ -30,7 +30,7 @@ fcgr = FCGR(k=8) # (256x256) image
 
 # Generate a random sequence without T's
 seq = "".join(random.choice("ACG") for _ in range(300_000))
-chaos = fcgr() # an array with the probabilities of each k-mer
+chaos = fcgr(seq) # an array with the probabilities of each k-mer
 fcgr.plot(chaos)
 ```
 | ![CGR for a sequence without T's](img/CGA.jpg) |
@@ -40,7 +40,7 @@ fcgr.plot(chaos)
 ```python
 # Generate a random sequence without T's and lots of N's
 seq = "".join(random.choice("ACGN") for _ in range(300_000))
-chaos = fcgr() # an array with the probabilities of each k-mer
+chaos = fcgr(seq) # an array with the probabilities of each k-mer
 fcgr.plot(chaos)
 ```
 
