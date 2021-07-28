@@ -49,6 +49,15 @@ fcgr.plot(chaos)
 |:--:|
 |sequence without T's and lot's of N's|
 
+### 3. Complex Chaos Game Representation of DNA (complexCGR)
+
+```python
+# Instantiate class CGR
+ccgr = complexCGR()
+ccgr_encode = ccgr.encode("ACGT")
+# > CGRCoords(k=228,N=4)
+```
+
 
 ## Installation
 ___
