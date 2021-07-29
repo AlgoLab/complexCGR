@@ -2,6 +2,7 @@ from . import complexCGR
 import matplotlib.pyplot as plt
 from itertools import product
 from collections import defaultdict
+from tqdm import tqdm
 import numpy as np 
 
 class complexFCGR(complexCGR): 
@@ -37,24 +38,24 @@ class complexFCGR(complexCGR):
 
     def plot(self, w):
         "Given a FCGR, plot it in grayscale"
-        plt.subplot(111, polar=True)
+        ax = plt.subplot(111, polar=True)
         center, bottom, width, height = self.compute_input_plot()
+        
         width = [w*_ for _ in width]
-        plt.bar(x=center, # center of the angle
+        print("generating plot")
+        ax.bar(x=center, # center of the angle
                 width=width, # width of the angle
                 bottom=bottom, # lowest value
                 height=height, # highest value 
             )
-        plt.xticks(color='w')
-        plt.yticks(color='w')
-        plt.grid(False)
-        
+
+        ax.axes.get_xaxis().set_visible(False)
+        ax.axes.get_yaxis().set_visible(False)
         
     def save(self, ccgr, path: str):
         pass
     
     def compute_input_plot(self,):
-        
         delta = 2*np.pi/4**self.k # angle between consecutive roots
 
         center = []
@@ -62,7 +63,7 @@ class complexFCGR(complexCGR):
         height = []
         bottom = []
 
-        for kmer in self.probabilities: 
+        for kmer in tqdm(self.probabilities): 
             h = self.probabilities.get(kmer,0.0)
             theta = 2*self.encode(kmer).k*np.pi/4**self.k # angle of k-esim root
             c = theta + delta/2
