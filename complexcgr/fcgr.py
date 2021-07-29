@@ -20,11 +20,13 @@ class FCGR(CGR):
     def count_kmers(self, sequence: str): 
         self.freq_kmer = defaultdict(int)
         # representativity of kmers
+        len_seq = len(sequence)
         for j,_ in enumerate(sequence):
-            subseq = sequence[j:j+self.k]
-            if "N" not in subseq:
-                self.freq_kmer[subseq] +=1
-    
+            if j+self.k <= len_seq:
+                subseq = sequence[j:j+self.k]
+                if "N" not in subseq:
+                    self.freq_kmer[subseq] +=1
+        
     def kmer_probabilities(self, sequence: str):
         self.probabilities = defaultdict(float)
         N=len(sequence)
