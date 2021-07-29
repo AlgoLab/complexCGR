@@ -1,4 +1,3 @@
-from complexcgr.cgr import CGR
 from typing import Dict, List
 from collections import namedtuple
 
