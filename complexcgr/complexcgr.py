@@ -17,7 +17,7 @@ class complexCGR:
     def id(self, nucleotide): 
         return self.nucleotide_order.index(nucleotide)
             
-    def forward(self,nucleotide: str): 
+    def forward(self, nucleotide: str): 
         "compute next complexCGR coordinates"
         k = self.id(nucleotide)*4**(self.cgr_coords.N) + self.cgr_coords.k
 
@@ -27,10 +27,14 @@ class complexCGR:
     def backward(self,):
         "compute last complexCGR coordinates"
         nucleotide = self.current_nucleotide()    
-        k = self.cgr_coords.k - self.id(nucleotide)*4**(self.cgr_coords.N)
+
+        # compute previous k
+        k = self.cgr_coords.k - self.id(nucleotide)*4**(self.cgr_coords.N-1)
 
         # update cgr_coords
         self.cgr_coords = CGRCoords(k,self.cgr_coords.N-1)
+
+        return nucleotide
     
     def encode(self, sequence: str): 
         "From DNA to complexCGR"
@@ -42,14 +46,20 @@ class complexCGR:
     def decode(self, k: int, N: int): 
         "From complexCGR to DNA"
         self.cgr_coords = CGRCoords(k,N)
+        
+        # decoded sequence
+        sequence = []
+
         # Recover the entire genome
         while self.cgr_coords.N>0: 
-            self.backward()
-        return self.cgr_coords        
+            nucleotide = self.backward()
+            sequence.append(nucleotide)
+        return "".join(sequence[::-1])
 
     def current_nucleotide(self,): 
         "Get current nucleotide based on k and N"
-        alpha = self.k/self.N
+        k,N = self.cgr_coords.k, self.cgr_coords.N
+        alpha = k/4**N
         if alpha <0.25: 
             return self.nucleotide_order[0]
         elif alpha <0.5:

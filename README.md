@@ -1,10 +1,25 @@
 # complexCGR
-`complexcgr` contains classes around the Game Representation for DNA sequences.
-The available classes are: 
+`complexcgr` contains classes around the *Chaos Game Representation* for DNA sequences.
+
+A list of available classes and functionalities are listed below:
 - [x] `CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
-- [x] `FCGR` Frequency Matrix CGR: representation as image for k-mer representativity based on CGR.
+  - [x] encode a sequence.
+  - [x] recover a sequence from a CGR encoding.
+- [x] `FCGR` Frequency Matrix CGR: representation as image for k-mer representativity, based on CGR.
+  - [x] generate FCGR from an arbitrary n-long sequence.
+  - [x] plot FCGR.
+  - [x] save FCGR generated.
 - [ ] `iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
+  - [ ] encode a sequence
+  - [ ] recover a sequence from an iCGR encoding
 - [x] `complexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
+  - [x] encode a sequence
+  - [x] recover a sequence from a complexCGR encoding
+  - [ ] plot sequence of complexCGR encodings 
+- [ ] `complexFCGR`: Frequency complexCGR: representation as image (circle) for k-mer representativity, based on complexCGR.
+  - [ ] generate complexFCGR from an arbitrary n-long sequence.
+  - [ ] plot complexFCGR.
+  - [ ] save complexFCGR generated.
 
 ## How to use
 ___
@@ -14,8 +29,14 @@ from complexcgr import CGR
 
 # Instantiate class CGR
 cgr = CGR()
-cgr_encode = cgr.encode("ACGT")
+
+# encode a sequence
+cgr.encode("ACGT")
 # > CGRCoords(N=4, x=0.1875, y=-0.5625)
+
+# recover a sequence from CGR coordinates
+cgr.decode(N=4,x=0.1875,y=-0.5625)
+# > "ACGT"
 ```
 
 ### 2. Frequency Matrix of Chaos Game Representation of DNA (FCGR)
@@ -61,8 +82,15 @@ fcgr.plot(chaos)
 ```python
 # Instantiate class CGR
 ccgr = complexCGR()
-ccgr_encode = ccgr.encode("ACGT")
+
+# encode a sequence
+ccgr.encode("ACGT")
 # > CGRCoords(k=228,N=4)
+
+# recover a sequence from complexCGR coordinates
+ccgr.decode(k=228,N=4)
+# > "ACGT"
+
 ```
 
 

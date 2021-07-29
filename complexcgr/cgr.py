@@ -78,5 +78,4 @@ class CGR:
         while self.cgr_coords.N>0: 
             nucleotide = self.backward()
             sequence.append(nucleotide)
-            print(sequence)
-        return "".join(sequence[-1::])      
+        return "".join(sequence[::-1])      
