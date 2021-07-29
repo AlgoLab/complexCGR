@@ -33,6 +33,13 @@ seq = "".join(random.choice("ACG") for _ in range(300_000))
 chaos = fcgr(seq) # an array with the probabilities of each k-mer
 fcgr.plot(chaos)
 ```
+
+You can save the image with
+```python
+fcgr.save(chaos, path="img/ACG.jpg")
+```
+Formats allowed are defined by PIL
+
 | ![CGR for a sequence without T's](img/CGA.jpg) |
 |:--:|
 |sequence without T's|

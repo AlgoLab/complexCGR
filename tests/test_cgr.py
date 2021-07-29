@@ -23,3 +23,12 @@ def test_cgr():
     assert cgr.cgr_coords.N == 1
     assert cgr.cgr_coords.x == 0.5
     assert cgr.cgr_coords.y == -0.5
+
+def test_cgr_decode(): 
+    "Decoding each nucleotide"
+    cgr = CGR()
+
+    assert cgr.decode(N=1,x=0.5,y=0.5) == "A"
+    assert cgr.decode(N=1,x=-0.5,y=0.5) == "C"
+    assert cgr.decode(N=1,x=-0.5,y=-0.5) == "G"
+    assert cgr.decode(N=1,x=0.5,y=-0.5) == "T"
