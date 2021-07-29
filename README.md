@@ -23,7 +23,7 @@ A list of available classes and functionalities are listed below:
 
 ## How to use
 ___
-### 1. Chaos Game Representation of DNA (CGR)
+### 1. `CGR` Chaos Game Representation of DNA 
 ```python
 from complexcgr import CGR
 
@@ -39,7 +39,7 @@ cgr.decode(N=4,x=0.1875,y=-0.5625)
 # > "ACGT"
 ```
 
-### 2. Frequency Matrix of Chaos Game Representation of DNA (FCGR)
+### 2. `FCGR` Frequency Matrix of Chaos Game Representation of DNA
 Input for FCGR only accept sequences in $\{A,C,G,T,N\}$, but all $k$-mers that contains an $N$ 
 will not be considered for the calculation of the frequency matrix CGR
 ```python
@@ -54,16 +54,17 @@ seq = "".join(random.choice("ACG") for _ in range(300_000))
 chaos = fcgr(seq) # an array with the probabilities of each k-mer
 fcgr.plot(chaos)
 ```
+| ![CGR for a sequence without T's](img/CGA.jpg) |
+|:--:|
+|sequence without T's|
+
 
 You can save the image with
 ```python
 fcgr.save(chaos, path="img/ACG.jpg")
 ```
-Formats allowed are defined by PIL
 
-| ![CGR for a sequence without T's](img/CGA.jpg) |
-|:--:|
-|sequence without T's|
+*Formats allowed are defined by PIL.*
 
 ```python
 # Generate a random sequence without T's and lots of N's
@@ -77,9 +78,11 @@ fcgr.plot(chaos)
 |:--:|
 |sequence without T's and lot's of N's|
 
-### 3. Complex Chaos Game Representation of DNA (complexCGR)
+### 3. `complexCGR` Complex Chaos Game Representation of DNA (complexCGR)
 
 ```python
+from complexcgr import complexCGR
+
 # Instantiate class CGR
 ccgr = complexCGR()
 
