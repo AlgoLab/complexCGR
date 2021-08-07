@@ -16,10 +16,10 @@ A list of available classes and functionalities are listed below:
   - [x] encode a sequence
   - [x] recover a sequence from a complexCGR encoding
   - [ ] plot sequence of complexCGR encodings 
-- [ ] `complexFCGR`: Frequency complexCGR: representation as image (circle) for k-mer representativity, based on complexCGR.
-  - [ ] generate complexFCGR from an arbitrary n-long sequence.
-  - [ ] plot complexFCGR.
-  - [ ] save complexFCGR generated.
+- [x] `complexFCGR`: Frequency complexCGR: representation as image (circle) for k-mer representativity, based on complexCGR.
+  - [x] generate complexFCGR from an arbitrary n-long sequence.
+  - [x] plot complexFCGR.
+  - [x] save complexFCGR generated.
 
 ## How to use
 ___
@@ -54,9 +54,9 @@ seq = "".join(random.choice("ACG") for _ in range(300_000))
 chaos = fcgr(seq) # an array with the probabilities of each k-mer
 fcgr.plot(chaos)
 ```
-| ![CGR for a sequence without T's](img/CGA.jpg) |
+| ![FCGR for a sequence without T's](img/CGA.jpg) |
 |:--:|
-|sequence without T's|
+|FCGR representation for a sequence without T's|
 
 
 You can save the image with
@@ -74,9 +74,9 @@ fcgr.plot(chaos)
 ```
 
 
-|![CGR for a sequence without T's](img/CGAN.jpg)|
+|![FCGR for a sequence without T's](img/CGAN.jpg)|
 |:--:|
-|sequence without T's and lot's of N's|
+|FCGR representation for a sequence without T's and lot's of N's|
 
 ### 3. `complexCGR` Complex Chaos Game Representation of DNA (complexCGR)
 
@@ -96,6 +96,31 @@ ccgr.decode(k=228,N=4)
 
 ```
 
+### 4. `complexFCGR` Frequency Matrix of Complex Chaos Game Representation of DNA
+Input for FCGR only accept sequences in $\{A,C,G,T,N\}$, but all $k$-mers that contains an $N$ 
+will not be considered for the calculation of the frequency matrix CGR
+```python
+import random; random.seed(42)
+from complexcgr import FCGR
+
+# set the k-mer desired
+cfcgr = complexFCGR(k=8) # 8-mers
+
+# Generate a random sequence without T's
+seq = "".join(random.choice("ACG") for _ in range(300_000))
+fig = cfcgr(seq)
+
+```
+| ![FCGR for a sequence without T's](img/CGA.jpg) |
+|:--:|
+|complexFCGR representation for a sequence without T's|
+
+
+You can save the image with
+```python
+cfcgr.save(fig, path="img/ACG-complexCGR.png")
+```
+*Currently the plot must be saved as png*
 
 ## Installation
 ___
