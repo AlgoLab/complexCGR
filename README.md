@@ -111,7 +111,7 @@ seq = "".join(random.choice("ACG") for _ in range(300_000))
 fig = cfcgr(seq)
 
 ```
-| ![FCGR for a sequence without T's](img/CGA.jpg) |
+| ![FCGR for a sequence without T's](img/ACG-complexCGR.png) |
 |:--:|
 |complexFCGR representation for a sequence without T's|
 
