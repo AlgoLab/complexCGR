@@ -1,6 +1,7 @@
 # complexCGR
 `complexcgr` contains classes around the *Chaos Game Representation* for DNA sequences.
 
+> version 0.4.0:  
 A list of available classes and functionalities are listed below:
 - [x] `CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
   - [x] encode a sequence.
@@ -9,9 +10,9 @@ A list of available classes and functionalities are listed below:
   - [x] generate FCGR from an arbitrary n-long sequence.
   - [x] plot FCGR.
   - [x] save FCGR generated.
-- [ ] `iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
-  - [ ] encode a sequence
-  - [ ] recover a sequence from an iCGR encoding
+- [x] `iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
+  - [x] encode a sequence
+  - [x] recover a sequence from an iCGR encoding
 - [x] `complexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
   - [x] encode a sequence
   - [x] recover a sequence from a complexCGR encoding
@@ -78,7 +79,24 @@ fcgr.plot(chaos)
 |:--:|
 |FCGR representation for a sequence without T's and lot's of N's|
 
-### 3. `complexCGR` Complex Chaos Game Representation of DNA (complexCGR)
+
+### 3. `iCGR` integer Chaos Game Representation of DNA 
+```python
+from complexcgr import iCGR
+
+# Instantiate class CGR
+icgr = iCGR()
+
+# encode a sequence
+icgr.encode("ACGT")
+# > CGRCoords(N=4, x=3, y=-9)
+
+# recover a sequence from CGR coordinates
+icgr.decode(N=4,x=3,y=-9)
+# > "ACGT"
+```
+
+### 4. `complexCGR` Complex Chaos Game Representation of DNA (complexCGR)
 
 ```python
 from complexcgr import complexCGR
@@ -96,7 +114,7 @@ ccgr.decode(k=228,N=4)
 
 ```
 
-### 4. `complexFCGR` Frequency Matrix of Complex Chaos Game Representation of DNA
+### 5. `complexFCGR` Frequency Matrix of Complex Chaos Game Representation of DNA
 Input for FCGR only accept sequences in $\{A,C,G,T,N\}$, but all $k$-mers that contains an $N$ 
 will not be considered for the calculation of the frequency matrix CGR
 ```python
@@ -121,6 +139,7 @@ You can save the image with
 cfcgr.save(fig, path="img/ACG-complexCGR.png")
 ```
 *Currently the plot must be saved as png*
+
 
 ## Installation
 ___

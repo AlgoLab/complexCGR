@@ -59,6 +59,7 @@ class complexFCGR(complexCGR):
         return ax.figure
 
     def save(self, ccgr, path: str):
+        "save complexFCGR as image"
         # get figure
         fig = self.plot() 
 
