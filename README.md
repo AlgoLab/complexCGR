@@ -1,7 +1,7 @@
 # complexCGR
 `complexcgr` contains classes around the *Chaos Game Representation* for DNA sequences.
 
-> version 0.4.0:  
+> version 0.5.0:  
 A list of available classes and functionalities are listed below:
 - [x] `CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
   - [x] encode a sequence.
@@ -16,7 +16,7 @@ A list of available classes and functionalities are listed below:
 - [x] `complexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
   - [x] encode a sequence
   - [x] recover a sequence from a complexCGR encoding
-  - [ ] plot sequence of complexCGR encodings 
+  - [x] plot sequence of complexCGR encodings 
 - [x] `complexFCGR`: Frequency complexCGR: representation as image (circle) for k-mer representativity, based on complexCGR.
   - [x] generate complexFCGR from an arbitrary n-long sequence.
   - [x] plot complexFCGR.
