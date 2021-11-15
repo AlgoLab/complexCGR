@@ -1,7 +1,7 @@
 # complexCGR
 `complexcgr` contains classes around the *Chaos Game Representation* for DNA sequences.
 
-> version 0.6.0:  
+> version 0.7.0:  
 A list of available classes and functionalities are listed below:
 - [x] `CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
   - [x] encode a sequence.
