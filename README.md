@@ -10,6 +10,7 @@ A list of available classes and functionalities are listed below:
   - [x] generate FCGR from an arbitrary n-long sequence.
   - [x] plot FCGR.
   - [x] save FCGR generated.
+  - [x] save FCGR in different bits.
 - [x] `iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
   - [x] encode a sequence
   - [x] recover a sequence from an iCGR encoding
@@ -64,8 +65,14 @@ You can save the image with
 ```python
 fcgr.save(chaos, path="img/ACG.jpg")
 ```
-
 *Formats allowed are defined by PIL.*
+
+You can also generate the image in 16 (or more bits), to avoid losing information of k-mer frequencies
+```python
+# Generate image in 16-bits (default is 8-bits)
+fcgr = FCGR(k=8, bits=16) # (256x256) image with range of colors in [0,65535]
+```
+
 
 ```python
 # Generate a random sequence without T's and lots of N's

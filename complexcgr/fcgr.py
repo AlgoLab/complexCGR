@@ -84,7 +84,8 @@ class FCGR(CGR):
         
         # invert colors black->white
         img_array = np.ceil(self.max_color - img_rescaled*self.max_color)
-        img_array = np.array(img_array, dtype="uint8")
+        dtype = eval(f"np.int{self.bits}")
+        img_array = np.array(img_array, dtype=dtype)
         
         # convert to Image 
         img_pil = Image.fromarray(img_array,'L')
