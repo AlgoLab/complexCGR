@@ -12,20 +12,38 @@ class FCGR(CGR):
     - 2**k x 2**k = 4**k the total number of k-mers (sequences of length k)
     """
 
-    def __init__(self, k: int):
+    def __init__(self, k: int, bits: int = 8):
         super().__init__()
         self.k = k # k-mer representation
         self.kmers = product("ACGT", repeat=self.k)
+        self.bits = bits
+        self.max_color = 2**bits-1
+
+    def __call__(self, sequence: str):
+        "Given a DNA sequence, returns an array with his FCGR"
+        self.count_kmers(sequence)
+        self.kmer_probabilities(sequence)
+        # Create an empty array to save the FCGR values
+        array_size = int(2**self.k)
+        fcgr = np.zeros((array_size,array_size))
+
+        # Assign probability to each box in the Frequency CGR
+        for kmer, prob in self.probabilities.items():
+            pos_x, pos_y = self.pixel_position(kmer)          
+            fcgr[int(pos_x)-1,int(pos_y)-1] = prob
+        return fcgr
+    
+    def count_kmer(self, kmer):
+        if "N" not in kmer:
+            self.freq_kmer[kmer] += 1
 
     def count_kmers(self, sequence: str): 
         self.freq_kmer = defaultdict(int)
         # representativity of kmers
-        len_seq = len(sequence)
-        for j,_ in enumerate(sequence):
-            if j+self.k <= len_seq:
-                subseq = sequence[j:j+self.k]
-                if "N" not in subseq:
-                    self.freq_kmer[subseq] +=1
+        last_j = len(sequence) - self.k + 1   
+        kmers  = (sequence[i:(i+self.k)] for i in range(last_j))
+        # count kmers in a dictionary
+        list(self.count_kmer(kmer) for kmer in kmers)
         
     def kmer_probabilities(self, sequence: str):
         self.probabilities = defaultdict(float)
@@ -48,20 +66,6 @@ class FCGR(CGR):
         # px = 2**k-cy+1, py = cx
         return 2**self.k-int(y)+1, int(x)
 
-    def __call__(self, sequence: str):
-        "Given a DNA sequence, returns an array with his FCGR"
-        self.count_kmers(sequence)
-        self.kmer_probabilities(sequence)
-        # Create an empty array to save the FCGR values
-        array_size = int(2**self.k)
-        fcgr = np.zeros((array_size,array_size))
-
-        # Assign probability to each box in the Frequency CGR
-        for kmer, prob in self.probabilities.items():
-            pos_x, pos_y = self.pixel_position(kmer)          
-            fcgr[int(pos_x)-1,int(pos_y)-1] = prob
-        return fcgr
-
     def plot(self, fcgr):
         "Given a FCGR, plot it in grayscale"
         img_pil = self.array2img(fcgr)
@@ -72,15 +76,14 @@ class FCGR(CGR):
         img_pil = self.array2img(fcgr)
         img_pil.save(path)
     
-    @staticmethod
-    def array2img(array):
+    def array2img(self, array):
         "Array to PIL image"
         m, M = array.min(), array.max()
         # rescale to [0,1]
         img_rescaled = (array - m) / (M-m) 
         
         # invert colors black->white
-        img_array = np.ceil(255 - img_rescaled*255)
+        img_array = np.ceil(self.max_color - img_rescaled*self.max_color)
         img_array = np.array(img_array, dtype="uint8")
         
         # convert to Image 
