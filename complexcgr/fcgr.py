@@ -32,6 +32,20 @@ class FCGR(CGR):
             pos_x, pos_y = self.pixel_position(kmer)          
             fcgr[int(pos_x)-1,int(pos_y)-1] = prob
         return fcgr
+
+    def freq_as_matrix(self, sequence: str):
+        "Given a DNA sequence, returns an array with his frequencies in the same order as FCGR"
+        self.count_kmers(sequence)
+        
+        # Create an empty array to save the FCGR values
+        array_size = int(2**self.k)
+        freq_matrix = np.zeros((array_size,array_size))
+
+        # Assign frequency to each box in the matrix
+        for kmer, freq in self.freq_kmer.items():
+            pos_x, pos_y = self.pixel_position(kmer)          
+            freq_matrix[int(pos_x)-1,int(pos_y)-1] = freq
+        return freq_matrix
     
     def count_kmer(self, kmer):
         if "N" not in kmer:
