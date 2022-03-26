@@ -1,13 +1,13 @@
 from complexcgr import (
     __version__,
-    complexCGR,
+    ComplexCGR,
 )
 
 def test_version():
     assert __version__ == '0.7.0'
 
 def test_complexCGR(): 
-    ccgr = complexCGR()
+    ccgr = ComplexCGR()
     
     # nucleotide A
     encode = ccgr.encode("A")
@@ -33,7 +33,7 @@ def test_complexCGR():
     assert encode.N == 1
 
 def test_complexCGR_decode():
-    ccgr = complexCGR()
+    ccgr = ComplexCGR()
 
     # nucleotide A
     decode = ccgr.decode(k=0,N=1)
@@ -55,7 +55,7 @@ def test_complexCGR_decode():
     assert decode == "T"
 
 def test_encode_decode_compatibility():
-    ccgr = complexCGR()
+    ccgr = ComplexCGR()
 
     seq = "ACGT"
     encode = ccgr.encode(seq)

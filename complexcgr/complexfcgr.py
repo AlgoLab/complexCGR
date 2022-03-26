@@ -1,4 +1,4 @@
-from . import complexCGR
+from . import ComplexCGR
 import matplotlib.pyplot as plt
 from itertools import product
 from collections import defaultdict
@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np 
 
 
-class complexFCGR(complexCGR): 
+class ComplexFCGR(ComplexCGR): 
     """Circular density plot based on CGR"""
 
     def __init__(self, k: int):

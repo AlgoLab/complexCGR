@@ -7,7 +7,7 @@ Coord = namedtuple("Coord", ["x","y"])
 # coordinates for a CGR encoding
 CGRCoords = namedtuple("CGRCoord", ["k","N"])
 
-class complexCGR:
+class ComplexCGR:
     "Complex Chaos Game Representation of DNA"
     def __init__(self, nucleotide_order: List[str] = ["A","C","G","T"]):
         self.nucleotide_order = nucleotide_order
