@@ -63,7 +63,7 @@ fcgr.plot(chaos)
 
 You can save the image with
 ```python
-fcgr.save(chaos, path="img/ACG.jpg")
+fcgr.save_img(chaos, path="img/ACG.jpg")
 ```
 *Formats allowed are defined by PIL.*
 
