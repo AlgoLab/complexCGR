@@ -73,7 +73,7 @@ class FCGR(CGR):
         img_pil = self.array2img(fcgr)
         return img_pil
 
-    def save(self, fcgr, path: str):
+    def save_img(self, fcgr, path: str):
         "Save image in grayscale for the FCGR provided as input"
         img_pil = self.array2img(fcgr)
         img_pil.save(path)

@@ -16,14 +16,14 @@ def test_savefig():
     # Generate a random sequence without T's
     seq = "".join(random.choice("ACG") for _ in range(30_000))
     chaos = fcgr(seq) # an array with the probabilities of each k-mer
-    fcgr.save(chaos, path="img/ACG.jpg")
+    fcgr.save_img(chaos, path="img/ACG.jpg")
 
 def test_savefig_16bits():
     fcgr = FCGR(k=8, bits=16)
     # Generate a random sequence without T's
     seq = "".join(random.choice("ACG") for _ in range(30_000))
     chaos = fcgr(seq) # an array with the probabilities of each k-mer
-    fcgr.save(chaos, path="img/ACG_16bits.jpg")
+    fcgr.save_img(chaos, path="img/ACG_16bits.jpg")
 
 
 
