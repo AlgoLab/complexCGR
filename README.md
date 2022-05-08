@@ -1,5 +1,5 @@
-# complexCGR
-`complexcgr` contains classes around the *Chaos Game Representation* for DNA sequences.
+# ComplexCGR
+`ComplexCGR` contains classes around the *Chaos Game Representation* for DNA sequences.
 
 > version 0.7.0:  
 A list of available classes and functionalities are listed below:
@@ -14,20 +14,20 @@ A list of available classes and functionalities are listed below:
 - [x] `iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
   - [x] encode a sequence
   - [x] recover a sequence from an iCGR encoding
-- [x] `complexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
+- [x] `ComplexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
   - [x] encode a sequence
-  - [x] recover a sequence from a complexCGR encoding
-  - [x] plot sequence of complexCGR encodings 
-- [x] `complexFCGR`: Frequency complexCGR: representation as image (circle) for k-mer representativity, based on complexCGR.
-  - [x] generate complexFCGR from an arbitrary n-long sequence.
-  - [x] plot complexFCGR.
-  - [x] save complexFCGR generated.
+  - [x] recover a sequence from a ComplexCGR encoding
+  - [x] plot sequence of ComplexCGR encodings 
+- [x] `ComplexFCGR`: Frequency ComplexCGR: representation as image (circle) for k-mer representativity, based on ComplexCGR.
+  - [x] generate ComplexFCGR from an arbitrary n-long sequence.
+  - [x] plot ComplexFCGR.
+  - [x] save ComplexFCGR generated.
 
 ## How to use
 ___
 ### 1. `CGR` Chaos Game Representation of DNA 
 ```python
-from complexcgr import CGR
+from ComplexCGR import CGR
 
 # Instantiate class CGR
 cgr = CGR()
@@ -46,7 +46,7 @@ Input for FCGR only accept sequences in $\{A,C,G,T,N\}$, but all $k$-mers that c
 will not be considered for the calculation of the frequency matrix CGR
 ```python
 import random; random.seed(42)
-from complexcgr import FCGR
+from ComplexCGR import FCGR
 
 # set the k-mer desired -> (2**k,2**k)$ FCGR
 fcgr = FCGR(k=8) # (256x256) image
@@ -63,7 +63,7 @@ fcgr.plot(chaos)
 
 You can save the image with
 ```python
-fcgr.save(chaos, path="img/ACG.jpg")
+fcgr.save_img(chaos, path="img/ACG.jpg")
 ```
 *Formats allowed are defined by PIL.*
 
@@ -89,7 +89,7 @@ fcgr.plot(chaos)
 
 ### 3. `iCGR` integer Chaos Game Representation of DNA 
 ```python
-from complexcgr import iCGR
+from ComplexCGR import iCGR
 
 # Instantiate class CGR
 icgr = iCGR()
@@ -103,47 +103,47 @@ icgr.decode(N=4,x=3,y=-9)
 # > "ACGT"
 ```
 
-### 4. `complexCGR` Complex Chaos Game Representation of DNA (complexCGR)
+### 4. `ComplexCGR` Complex Chaos Game Representation of DNA (ComplexCGR)
 
 ```python
-from complexcgr import complexCGR
+from ComplexCGR import ComplexCGR
 
 # Instantiate class CGR
-ccgr = complexCGR()
+ccgr = ComplexCGR()
 
 # encode a sequence
 ccgr.encode("ACGT")
 # > CGRCoords(k=228,N=4)
 
-# recover a sequence from complexCGR coordinates
+# recover a sequence from ComplexCGR coordinates
 ccgr.decode(k=228,N=4)
 # > "ACGT"
 
 ```
 
-### 5. `complexFCGR` Frequency Matrix of Complex Chaos Game Representation of DNA
+### 5. `ComplexFCGR` Frequency Matrix of Complex Chaos Game Representation of DNA
 Input for FCGR only accept sequences in $\{A,C,G,T,N\}$, but all $k$-mers that contains an $N$ 
 will not be considered for the calculation of the frequency matrix CGR
 ```python
 import random; random.seed(42)
-from complexcgr import FCGR
+from ComplexCGR import FCGR
 
 # set the k-mer desired
-cfcgr = complexFCGR(k=8) # 8-mers
+cfcgr = ComplexFCGR(k=8) # 8-mers
 
 # Generate a random sequence without T's
 seq = "".join(random.choice("ACG") for _ in range(300_000))
 fig = cfcgr(seq)
 
 ```
-| ![FCGR for a sequence without T's](img/ACG-complexCGR.png) |
+| ![FCGR for a sequence without T's](img/ACG-ComplexCGR.png) |
 |:--:|
-|complexFCGR representation for a sequence without T's|
+|ComplexFCGR representation for a sequence without T's|
 
 
 You can save the image with
 ```python
-cfcgr.save(fig, path="img/ACG-complexCGR.png")
+cfcgr.save(fig, path="img/ACG-ComplexCGR.png")
 ```
 *Currently the plot must be saved as png*
 
@@ -151,10 +151,10 @@ cfcgr.save(fig, path="img/ACG-complexCGR.png")
 ## Installation
 ___
 ```shell
-pip install complexcgr
+pip install ComplexCGR
 ```
 
 to update to the latest version
 ```shell
-pip install complexcgr --upgrade
+pip install ComplexCGR --upgrade
 ```
