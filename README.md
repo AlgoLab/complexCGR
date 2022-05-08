@@ -1,7 +1,18 @@
 # ComplexCGR
 `ComplexCGR` contains classes around the *Chaos Game Representation* for DNA sequences.
 
-> version 0.7.0:  
+## Installation
+___
+```shell
+pip install ComplexCGR
+```
+
+to update to the latest version
+```shell
+pip install ComplexCGR --upgrade
+```
+
+> version 0.7.1:  
 A list of available classes and functionalities are listed below:
 - [x] `CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
   - [x] encode a sequence.
@@ -148,13 +159,3 @@ cfcgr.save(fig, path="img/ACG-ComplexCGR.png")
 *Currently the plot must be saved as png*
 
 
-## Installation
-___
-```shell
-pip install ComplexCGR
-```
-
-to update to the latest version
-```shell
-pip install ComplexCGR --upgrade
-```
