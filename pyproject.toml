@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "complexCGR"
-version = "0.7.1"
+version = "0.7.2"
 description = "complex Chaos Game Representation for DNA"
 authors = ["Jorge Avila <jorgeavilacartes@gmail.com>"]
 
