@@ -1,5 +1,5 @@
-# ComplexCGR
-`ComplexCGR` contains classes around the *Chaos Game Representation* for DNA sequences.
+# `complexcgr` 
+`complexcgr` contains classes around the *Chaos Game Representation* for DNA sequences.
 
 ## Installation
 [pypi](https://pypi.org/project/complexcgr/)
@@ -45,7 +45,7 @@ A list of available classes and functionalities are listed below:
 ___
 ### 1. `CGR` Chaos Game Representation of DNA 
 ```python
-from ComplexCGR import CGR
+from complexcgr import CGR
 
 # Instantiate class CGR
 cgr = CGR()
@@ -64,7 +64,7 @@ Input for FCGR only accept sequences in $\{A,C,G,T,N\}$, but all $k$-mers that c
 will not be considered for the calculation of the frequency matrix CGR
 ```python
 import random; random.seed(42)
-from ComplexCGR import FCGR
+from complexcgr import FCGR
 
 # set the k-mer
 fcgr = FCGR(k=8) # (256x256) array
@@ -118,7 +118,7 @@ Every time a k-mer is counted, a quality for the k-mer will also be counted, thi
 Note that the plot function only work for a 1-channel matrix. 
 
 ```python
-from ComplexCGR import FCGRSamples
+from complexcgr import FCGRSamples
 
 # set the k-mer desired -> (2**k,2**k)$ FCGR
 fcgr_samples = FCGRSamples(k=8)
@@ -148,7 +148,7 @@ chaos = fcgr_samples(fastq_files, consider_quality=True) # # (2**k,2**k,2) array
 
 ### 3. `iCGR` integer Chaos Game Representation of DNA 
 ```python
-from ComplexCGR import iCGR
+from complexcgr import iCGR
 
 # Instantiate class CGR
 icgr = iCGR()
@@ -165,7 +165,7 @@ icgr.decode(N=4,x=3,y=-9)
 ### 4. `ComplexCGR` Complex Chaos Game Representation of DNA (ComplexCGR)
 
 ```python
-from ComplexCGR import ComplexCGR
+from complexcgr import ComplexCGR
 
 # Instantiate class CGR
 ccgr = ComplexCGR()
@@ -185,7 +185,7 @@ Input for FCGR only accept sequences in $\{A,C,G,T,N\}$, but all $k$-mers that c
 will not be considered for the calculation of the frequency matrix CGR
 ```python
 import random; random.seed(42)
-from ComplexCGR import FCGR
+from complexcgr import FCGR
 
 # set the k-mer desired
 cfcgr = ComplexFCGR(k=8) # 8-mers
