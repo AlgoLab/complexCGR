@@ -3,7 +3,7 @@ img/
 __pycache__/
 *.py[cod]
 *$py.class
-
+env.yml
 # C extensions
 *.so
 

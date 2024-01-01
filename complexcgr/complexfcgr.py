@@ -68,6 +68,7 @@ class ComplexFCGR(ComplexCGR):
         
         # save image 
         img.save(path)
+        plt.close(fig)
 
     @staticmethod
     def fig2img(fig):

@@ -1,10 +1,6 @@
 "From original work: CGR for gene structure"
-from itertools import product
-from tqdm import tqdm
 from typing import Dict, Optional 
-from collections import defaultdict, namedtuple
-from PIL import Image
-import numpy as np
+from collections import namedtuple
 
 # coordinates for x+iy
 Coord = namedtuple("Coord", ["x","y"])

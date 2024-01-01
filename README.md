@@ -1,6 +1,20 @@
 # `complexcgr` 
 `complexcgr` contains classes around the *Chaos Game Representation* for DNA sequences.
 
+**The FCGR helps to visualize a k-mer distribution** the FCGR of a sequence is an image showing the distribution of the $k$-mers 
+given an chosen $k$. The frequencies of all $k$-mers are distributed in the position of a matrix of $2^k \times 2^k$,
+which considers all the posible $k$-mers: $4^k$.
+
+The position that a $k$-mer uses in the matrix depends on the encoding given by the `CGR`. 
+
+Some examples of [bacterial assemblies](https://zenodo.org/records/4602622) are shown below. 
+The name of the species and the `sample_id` are in the title of each image ([see an example with the first image](https://www.ebi.ac.uk/ena/browser/view/SAMEA2658585)). These images were 
+created using the 6-mers of each assembly and the class `FCGR` of this library. 
+
+| ![FCGR of 10 bacteria](img/complexcgr-readme.png) |
+|:--:|
+|30 different species of bacteria represented by the FCGR using 6-mers from assemblies| -->
+
 ## Installation
 [pypi](https://pypi.org/project/complexcgr/)
 ___
@@ -13,29 +27,40 @@ to update to the latest version
 pip install complexcgr --upgrade
 ```
 
-> version 0.7.2:  
+> version 0.8.0:  
 A list of available classes and functionalities are listed below:
-- [x] `CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
-  - [x] encode a sequence.
-  - [x] recover a sequence from a CGR encoding.
+
+**Encoders**
+The enconders are functions that map a sequence $s \in \{A,C,G,T\}$ to a point in the plane. 
+`CGR`, `iCGR` and `ComplexCGR`.
+
+`CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
+- [x] encode a sequence.
+- [x] recover a sequence from a CGR encoding.
+
+`iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
+
+`CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
+- [x] encode a sequence.
+- [x] recover a sequence from a CGR encoding.
+
+`iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
+- [x] encode a sequence
+- [x] recover a sequence from an iCGR encoding
+
+`ComplexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
+- [x] encode a sequence
+- [x] recover a sequence from a ComplexCGR encoding
+- [x] plot sequence of ComplexCGR encodings 
+
+**Image for distribution of k-mers**
+
 - [x] `FCGR` Frequency Matrix CGR: representation as image for k-mer representativity, based on CGR.
   - [x] generate FCGR from an arbitrary n-long sequence.
   - [x] plot FCGR.
   - [x] save FCGR generated.
   - [x] save FCGR in different bits.
-- [x] `FCGRSamples` Frequency Matrix CGR from fastq files (extension of FCGR)
-  - [x] generate FCGR from a fastq (or list of) file(s).
-  - [x] generate FCGR from a fastq and consider qualities.
-  - [x] plot FCGR.
-  - [x] save FCGR generated.
-  - [x] save FCGR in different bits.
-- [x] `iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
-  - [x] encode a sequence
-  - [x] recover a sequence from an iCGR encoding
-- [x] `ComplexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
-  - [x] encode a sequence
-  - [x] recover a sequence from a ComplexCGR encoding
-  - [x] plot sequence of ComplexCGR encodings 
+- [x] `FCGRKmc` Same as `FCGR` but receives as input the file with k-mer counts generated with [KMC](https://github.com/refresh-bio/KMC)
 - [x] `ComplexFCGR`: Frequency ComplexCGR: representation as image (circle) for k-mer representativity, based on ComplexCGR.
   - [x] generate ComplexFCGR from an arbitrary n-long sequence.
   - [x] plot ComplexFCGR.
@@ -105,46 +130,6 @@ fcgr.plot(chaos)
 |FCGR representation for a sequence without T's and lot's of N's|
 
 
-#### 2.1 `FCGRSamples`
-This class inherits all the functionalities from the `FCGR` class, hence, you can 
-plot the FCGR and decide the bits as well. 
-- **IMPORTANT** `FCGRSamples` is built under the assumption that all reads of a sample can be 
-distributed among one or more files. So, before use it, make sure that each file contains reads 
-to only one sample.
-- **How it works?** it counts all the k-mers in each read, then it builds the FCGR
-- **Additional Functionality! Quality of reads** it is possible to consider the quality of the reads in the FCGR. 
-Every time a k-mer is counted, a quality for the k-mer will also be counted, this quality consist on the average of the qualities of its nucleotides. At the end, a second channel with the average quality of each k-mer will be added to the FCGR (So, we perform two averages: one that captures the quality of a specific k-mer, and the one we include as a second channel to the FCGR, shows the average quality of each k-mer w.r.t their frequencies).
-
-Note that the plot function only work for a 1-channel matrix. 
-
-```python
-from complexcgr import FCGRSamples
-
-# set the k-mer desired -> (2**k,2**k)$ FCGR
-fcgr_samples = FCGRSamples(k=8)
-
-# Select paths to my fastq files
-
-# for one file, write the path to your fastq file
-fastq_files = "my_sample.fastq"
-
-# for many files, create a list
-fastq_files = ["my_sample_1.fastq", "my_sample_2.fastq"]
-
-chaos = fcgr_samples(fastq_files)  # (2**k,2**k) array
-```
-the above `chaos` will generate the FCGR for the samples. 
-
-In order to include the qualities as a second channel, set `consider_quality` to `True` when calling function 
-to generate the FCGR 
-```python 
-# set the k-mer desired -> (2**k,2**k)$ FCGR
-fcgr_samples = FCGRSamples(k=8)
-
-# Select paths to my fastq files
-fastq_files = ["my_sample_1.fastq", "my_sample_2.fastq"]
-chaos = fcgr_samples(fastq_files, consider_quality=True) # # (2**k,2**k,2) array
-```
 
 ### 3. `iCGR` integer Chaos Game Representation of DNA 
 ```python
@@ -195,7 +180,7 @@ seq = "".join(random.choice("ACG") for _ in range(300_000))
 fig = cfcgr(seq)
 
 ```
-| ![FCGR for a sequence without T's](img/ACG-ComplexCGR.png) |
+| ![FCGR for a sequence without T's](img/ACG-complexCGR.png) |
 |:--:|
 |ComplexFCGR representation for a sequence without T's|
 
@@ -206,4 +191,54 @@ cfcgr.save(fig, path="img/ACG-ComplexCGR.png")
 ```
 *Currently the plot must be saved as png*
 
+___
+## Advice for Real applications
 
+**Count k-mers** could be the bottleneck when working with large sequences (> 100000 bp). 
+Note that the class `FCGR` (and `ComplexCGR`) has implemented a naive approach to count k-mers, this is intendent since in practice state of the art tools like KMC or Jellyfish are used to count k-mers very efficiently. 
+
+We provide the class `FCGRKmc`, that simply receives as input the file generated by the following pipeline with using [KMC3](https://github.com/refresh-bio/KMC) 
+
+Make sure to have `kmc` installed. One recommended way is to create a conda environment and [install it there](https://anaconda.org/bioconda/kmc)
+
+```bash
+kmer_size=6
+input="path/to/sequence.fa"
+output="path/to/count-kmers.txt"
+
+mkdir -p tmp-kmc
+kmc -v -k$kmer_size -m4 -sm -ci0 -cs100000 -b -t4 -fa $input $input "tmp-kmc"
+kmc_tools -t4 -v transform $input dump $output 
+rm -r $input $input.kmc_pre $input.kmc_suf
+```
+the output file `path/to/count-kmers.txt` can be used with `FCGRKmc`
+
+```python
+from complexcgr import FCGRKmer
+
+kmer = 6
+fcgr = FCGRKmer(kmer)
+
+arr = fcgr("path/to/count-kmers.txt") # k-mer counts ordered in a matrix of 2^k x 2^k
+
+
+# to visualize distribution of k-mers. 
+# Frequencies are scaled between [min,max] values. 
+# White color correspond to the minimum value of frequency
+# Black color correspond to the maximum value of frequency
+fcgr.plot(arr) 
+
+# Save it with numpy
+import numpy as np
+np.save("path_save/fcgr.npy",arr)
+```
+
+___ 
+# Videos
+
+**CGR encoding**
+[![CGR encoding of a sequence](https://img.youtube.com/vi/HU15ge0fkOY/0.jpg)](https://youtu.be/HU15ge0fkOY)
+
+
+**CGR encoding of all k-mers** This will define the positions of k-mers in the FCGR image.
+[![How are k-mers distributed for different k](https://img.youtube.com/vi/oYLT11Q9n5M/0.jpg)](https://youtu.be/oYLT11Q9n5M)

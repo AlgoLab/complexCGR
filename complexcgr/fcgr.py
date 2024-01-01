@@ -4,6 +4,8 @@ from itertools import product
 from collections import defaultdict
 import numpy as np 
 
+NUC_COMPLEMENT = {n:c for n,c in zip ("ACGT","TGCA")}
+
 class FCGR(CGR): 
     """Frequency matrix CGR
     an (2**k x 2**k) 2D representation will be created for a 
@@ -12,12 +14,17 @@ class FCGR(CGR):
     - 2**k x 2**k = 4**k the total number of k-mers (sequences of length k)
     """
 
-    def __init__(self, k: int, bits: int = 8):
+    def __init__(self, k: int, use_canonical_kmers: bool = False ,bits: int = 8):
         super().__init__()
         self.k = k # k-mer representation
+        self.use_canonical_kmers = use_canonical_kmers
         self.kmers = list("".join(kmer) for kmer in product("ACGT", repeat=self.k))
-        self.kmer2pixel = self.kmer2pixel_position()
-        self.freq_kmer = defaultdict(int)
+
+        if use_canonical_kmers is True:
+            self.kmer2pixel = self._kmer2pixel_canonical_kmers()        
+        else:
+            self.kmer2pixel = self.kmer2pixel_position()
+    
         self.bits = bits
         self.max_color = 2**bits-1
 
@@ -92,3 +99,22 @@ class FCGR(CGR):
         # convert to Image 
         img_pil = Image.fromarray(img_array,'L')
         return img_pil
+    
+    # # --------------- canonical k-mers ---------------- # # 
+    @staticmethod
+    def reverse_complement(kmer: str):
+        rev_kmer = list(kmer)[::-1]
+        return "".join([NUC_COMPLEMENT[n] for n in rev_kmer])
+
+    def get_canonical_kmer(self, kmer: str):
+        rev_complement = self.reverse_complement(kmer)
+        return kmer if kmer < rev_complement else rev_complement
+    
+    def _kmer2pixel_canonical_kmers(self,):
+        # change pixel position of non-canonical kmers    
+        kmer2pixel = dict()
+        for kmer in self.kmers: 
+            canonical_kmer = self.get_canonical_kmer(kmer)
+            if kmer != canonical_kmer:      
+                kmer2pixel[kmer] = kmer2pixel[canonical_kmer]
+        return kmer2pixel
