@@ -209,7 +209,7 @@ output="path/to/count-kmers.txt"
 mkdir -p tmp-kmc
 kmc -v -k$kmer_size -m4 -sm -ci0 -cs100000 -b -t4 -fa $input $input "tmp-kmc"
 kmc_tools -t4 -v transform $input dump $output 
-rm -r $input $input.kmc_pre $input.kmc_suf
+rm -r $input.kmc_pre $input.kmc_suf
 ```
 the output file `path/to/count-kmers.txt` can be used with `FCGRKmc`
 
