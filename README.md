@@ -1,13 +1,13 @@
 # `complexcgr` 
 `complexcgr` contains classes around the *Chaos Game Representation* for DNA sequences.
 
-**The FCGR helps to visualize a k-mer distribution** The FCGR of a sequence is an image showing the distribution of the $k$-mers 
+**The FCGR helps to visualize a k-mer distribution** The `FCGR` of a sequence is an image showing the distribution of the $k$-mers 
 given a chosen $k$. The frequencies of all $k$-mers are distributed in the position of a matrix of $2^k \times 2^k$,
 which considers all the possible $k$-mers: $4^k$.
 
 The position that a $k$-mer uses in the matrix depends on the encoding given by the `CGR`. 
 
-Some examples of [bacterial assemblies](https://zenodo.org/records/4602622) are shown below. 
+Some examples of [bacterial assemblies](https://zenodo.org/records/4602622) ([see reference](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3001421)) are shown below. 
 The name of the species and the `sample_id` is in the title of each image ([see an example with the first image](https://www.ebi.ac.uk/ena/browser/view/SAMEA2658585)). These images were 
 created using the 6-mers of each assembly and the class `FCGR` of this library. 
 
