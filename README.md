@@ -214,10 +214,10 @@ rm -r $input.kmc_pre $input.kmc_suf
 the output file `path/to/count-kmers.txt` can be used with `FCGRKmc`
 
 ```python
-from complexcgr import FCGRKmer
+from complexcgr import FCGRKmc
 
 kmer = 6
-fcgr = FCGRKmer(kmer)
+fcgr = FCGRKmc(kmer)
 
 arr = fcgr("path/to/count-kmers.txt") # k-mer counts ordered in a matrix of 2^k x 2^k
 
