@@ -247,8 +247,10 @@ ___
 
 
 **ComplexCGR encoding**
-[![How are k-mers ordered based on lexicographic order for k=2](https://img.youtube.com/vi/HU15ge0fkOY/0.jpg)](https://www.youtube.com/watch?v=xKyXplS5KFk)
+
+
+[![How are k-mers ordered based on lexicographic order for k=2](https://img.youtube.com/vi/xKyXplS5KFk/0.jpg)](https://youtu.be/xKyXplS5KFk)
 
 **ComplexCGR and Symmetry**
-[![Conjugate of a complex number has a meaning (reverse sequence)](https://img.youtube.com/vi/HU15ge0fkOY/0.jpg)](https://www.youtube.com/watch?v=xKyXplS5KFk)
+[![Conjugate of a complex number has a meaning (reverse sequence)](https://img.youtube.com/vi/YmcxVId4_4w/0.jpg)](https://www.youtube.com/YmcxVId4_4w)
 
