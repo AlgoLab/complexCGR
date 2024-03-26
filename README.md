@@ -237,8 +237,18 @@ ___
 # Videos
 
 **CGR encoding**
+
 [![CGR encoding of a sequence](https://img.youtube.com/vi/HU15ge0fkOY/0.jpg)](https://youtu.be/HU15ge0fkOY)
 
 
 **CGR encoding of all k-mers** This will define the positions of k-mers in the FCGR image.
+
 [![How are k-mers distributed for different k](https://img.youtube.com/vi/oYLT11Q9n5M/0.jpg)](https://youtu.be/oYLT11Q9n5M)
+
+
+**ComplexCGR encoding**
+[![How are k-mers ordered based on lexicographic order for k=2](https://img.youtube.com/vi/HU15ge0fkOY/0.jpg)](https://www.youtube.com/watch?v=xKyXplS5KFk)
+
+**ComplexCGR and Symmetry**
+[![Conjugate of a complex number has a meaning (reverse sequence)](https://img.youtube.com/vi/HU15ge0fkOY/0.jpg)](https://www.youtube.com/watch?v=xKyXplS5KFk)
+
