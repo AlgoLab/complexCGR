@@ -1,5 +1,5 @@
 # `complexcgr` 
-`complexcgr` contains classes around the *Chaos Game Representation* for DNA sequences.
+This library have classes around the *Chaos Game Representation* for DNA sequence
 
 **The FCGR helps to visualize a k-mer distribution** The `FCGR` of a sequence is an image showing the distribution of the $k$-mers 
 given a chosen $k$. The frequencies of all $k$-mers are distributed in the position of a matrix of $2^k \times 2^k$,
@@ -26,45 +26,6 @@ to update to the latest version
 ```shell
 pip install complexcgr --upgrade
 ```
-
-> version 0.8.0:  
-A list of available classes and functionalities are listed below:
-
-**Encoders**
-The encoders are functions that map a sequence $s \in \{A,C,G,T\}$ to a point in the plane. 
-`CGR`, `iCGR`, and `ComplexCGR`.
-
-`CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
-- [x] encode a sequence.
-- [x] recover a sequence from a CGR encoding.
-
-`iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
-
-`CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
-- [x] encode a sequence.
-- [x] recover a sequence from a CGR encoding.
-
-`iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
-- [x] encode a sequence
-- [x] recover a sequence from an iCGR encoding
-
-`ComplexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
-- [x] encode a sequence
-- [x] recover a sequence from a ComplexCGR encoding
-- [x] plot sequence of ComplexCGR encodings 
-
-**Image for distribution of k-mers**
-
-- [x] `FCGR` Frequency Matrix CGR: representation as an image for k-mer representativity, based on CGR.
-  - [x] generates FCGR from an arbitrary n-long sequence.
-  - [x] plot FCGR.
-  - [x] save FCGR generated.
-  - [x] save FCGR in different bits.
-- [x] `FCGRKmc` Same as `FCGR` but receives as input the file with k-mer counts generated with [KMC](https://github.com/refresh-bio/KMC)
-- [x] `ComplexFCGR`: Frequency ComplexCGR: representation as an image (circle) for k-mer representativity, based on ComplexCGR.
-  - [x] generates ComplexFCGR from an arbitrary n-long sequence.
-  - [x] plot ComplexFCGR.
-  - [x] save ComplexFCGR generated.
 
 ## How to use
 ___
@@ -240,17 +201,73 @@ ___
 
 [![CGR encoding of a sequence](https://img.youtube.com/vi/HU15ge0fkOY/0.jpg)](https://youtu.be/HU15ge0fkOY)
 
-
-**CGR encoding of all k-mers** This will define the positions of k-mers in the FCGR image.
+**CGR encoding of all k-mers**
 
 [![How are k-mers distributed for different k](https://img.youtube.com/vi/oYLT11Q9n5M/0.jpg)](https://youtu.be/oYLT11Q9n5M)
 
-
 **ComplexCGR encoding**
-
 
 [![How are k-mers ordered based on lexicographic order for k=2](https://img.youtube.com/vi/xKyXplS5KFk/0.jpg)](https://youtu.be/xKyXplS5KFk)
 
 **ComplexCGR and Symmetry**
+
 [![Conjugate of a complex number has a meaning (reverse sequence)](https://img.youtube.com/vi/YmcxVId4_4w/0.jpg)](https://www.youtube.com/YmcxVId4_4w)
 
+
+# Functionalities/TODO list
+___
+> version 0.8.0:  
+A list of available classes and functionalities are listed below:
+
+
+**Encoders**
+The encoders are functions that map a sequence $s \in \{A,C,G,T\}$ to a point in the plane. 
+`CGR`, `iCGR`, and `ComplexCGR`.
+
+`CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
+- [x] encode a sequence.
+- [x] recover a sequence from a CGR encoding.
+
+`iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
+
+`CGR`  Chaos Game Representation: encodes a DNA sequence in 3 numbers $(N,x,y)$
+- [x] encode a sequence.
+- [x] recover a sequence from a CGR encoding.
+
+`iCGR` integer CGR: encodes a DNA sequence in 3 integers $(N,x,y)$. 
+- [x] encode a sequence
+- [x] recover a sequence from an iCGR encoding
+
+`ComplexCGR`: encodes a DNA sequence in 2 integers $(k,N)$.
+- [x] encode a sequence
+- [x] recover a sequence from a ComplexCGR encoding
+- [x] plot sequence of ComplexCGR encodings 
+
+**Image for distribution of k-mers**
+
+- [x] `FCGR` Frequency Matrix CGR: representation as an image for k-mer representativity, based on CGR.
+  - [x] generates FCGR from an arbitrary n-long sequence.
+  - [x] plot FCGR.
+  - [x] save FCGR generated.
+  - [x] save FCGR in different bits.
+- [x] `FCGRKmc` Same as `FCGR` but receives as input the file with k-mer counts generated with [KMC](https://github.com/refresh-bio/KMC)
+- [x] `ComplexFCGR`: Frequency ComplexCGR: representation as an image (circle) for k-mer representativity, based on ComplexCGR.
+  - [x] generates ComplexFCGR from an arbitrary n-long sequence.
+  - [x] plot ComplexFCGR.
+  - [x] save ComplexFCGR generated.
+
+- [ ] `PercentileFCGR`:
+  - [A universal DNA signature for the Tree of Life. EcoEvoRxiv](https://doi.org/10.32942/X24891)
+- [ ] `SpacedFCGR`: Create FCGR from spaced-mers
+  - [Spaced seeds improve k-mer-based metagenomic classification, Bioninformatics](https://academic.oup.com/bioinformatics/article/31/22/3584/240663)
+  - [Effects of spaced k-mers on alignment-free genotyping](https://academic.oup.com/bioinformatics/article/39/Supplement_1/i213/7210439)
+
+# Author
+
+`complexcgr` is developed by [Jorge Avila Cartes](https://github.com/jorgeavilacartes/)
+
+
+# Related publications
+
+- [Accurate and fast clade assignment via deep learning and frequency chaos game representation](https://doi.org/10.1093/gigascience/giac119)
+- [PanSpace: Fast and Scalable Indexing for Massive Bacterial Databases](https://doi.org/10.1101/2025.03.19.644115)
