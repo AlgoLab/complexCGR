@@ -1,3 +1,5 @@
+<img src="img/logo-complexCGR-nb.png" width="250" height="250">
+
 # `complexcgr` 
 This library have classes around the *Chaos Game Representation* for DNA sequence
 
